@@ -178,12 +178,6 @@ The representation of datapoints given by this transformation depend on paramete
 - Melspectrogram
 ![melspectrogram_illustration](./mel_example.png)
 
-Details of the four approachs: 
-- Signal transformations -> Machine Learning model (RandomForest and SVC)
-- Raw Signal or Signal transformations -> Convolutional neural network
-- Raw Signal subsampling or Signal transformations -> Autoencoder -> Encoder part (frozen) + final classification layer
-- Raw Signal or Signal transformations -> Long Short Time Memory neural network
-
 ### B. Models
 
 **Random Forest Classifier and Support Vector Classifier**
@@ -215,15 +209,21 @@ Since signals transformation used in this project can be seen as signal represen
 
 #### All Classifier results on test dataset
 
+
 ![All results](./all_results_accuracy.png)
+
 
 #### SVC Melspectrogram Confusion Matrix on test dataset
 
+
 ![GenreModel1D Mel CM results](./SVC_melspectrogram_matrix.png)
+
 
 #### GenreModel1D Melspectrogram Confusion Matrix on test dataset
 
+
 ![GenreModel1D Mel CM results](./GenreModel1D_melspectrogram_matrix.png)
+
 
 ## 5. Discussion: Approachs comparaison
 
