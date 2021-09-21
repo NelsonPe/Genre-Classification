@@ -68,10 +68,6 @@ Rolling window of 3 seconds with 3 second step. <br>
 
 ![Data_augmentation_illustration](./DataAugmentation_zoom.png)
 
-
-Danger: <br>
-The overlapping window introduce a special danger, two differents datapoints have some identical features, datapoints that can be split in train and val/test. This means that the model can memorise them instead of generalisable knowledge and this kind of overfitting will be invisible in test error and so I will underestimate generalisation error. To prevent this, I split the dataset in train, val and test according to their original song and only after splitting I unwrapped it in extracts.
-
 ### b. Subsampling
 
 **For now, I don't use subsampling** but I implemented it in the pipe because I want to investigate its impact. 
