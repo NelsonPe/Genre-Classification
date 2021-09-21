@@ -76,7 +76,7 @@ Rolling window of 3 seconds with 3 second step. <br>
 
 Training IA model in a personal computer is limited by the computing power but very quickly random access memory become the bottleneck of this procedure. To pass through, this difficulty I use a custom DataGeneration class so datapoints are loaded from disk by batch. I use the DataGenerator class (found at https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly) and modify it to fit my particular need (loading song, wrapping song extract and corresponding labels). 
 
-A song with no resampling, 3 seconds extracts and 1 second rolling window step is saved as an array of arrays of shape (28, 66150): 
+A song with no resampling, 3 seconds extracts and 1 second rolling window step is saved as an array of arrays of shape (10, 66150): 
 
     array([[ 0.0000000e+00,  0.0000000e+00,  0.0000000e+00, ...,
             -8.8073730e-02, -6.0546875e-02, -2.2003174e-02],
@@ -95,7 +95,7 @@ A song with no resampling, 3 seconds extracts and 1 second rolling window step i
 For each transformation, I make a folder with transformation name containing 1001 files (one per song plus labels: a dict with file name as key and label as target ex: label.get("id-42") return "hiphop", that allow loading only target for splitting). 
 For example, 2dmelspectrogram signals are saved in "Saved_preprocess_datas/2dmelspectrogram/" that contains files (id-0.npy to id-999.npy and labels.npy).
 
-![Storage_illustration](./Illustrations_projet/arbo_storage_mel.png)
+![Storage_illustration](./arbo_storage_mel.png)
 
 ### d. Code structure
 
