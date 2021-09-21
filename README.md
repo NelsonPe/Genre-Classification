@@ -166,17 +166,17 @@ Reading about signal approach in machine learning, I identified at least four ap
 The representation of datapoints given by this transformation depend on parameters take can be tune such as number of window, final resolution or window step.
 
 - Fourier transform
-![fft_illustration](./fft_example_2.png)
+>![fft_illustration](./fft_example_2.png)
 
 - Short time fourier transform (stft) 
-![stft_illustration](./STFT_example.png)
+>![stft_illustration](./STFT_example.png)
 
 
 - Mel-frequency cepstral coefficients (mfcc)
-![mfcc_illustration](./MFCC_example.png)
+>![mfcc_illustration](./MFCC_example.png)
 
 - Melspectrogram
-![melspectrogram_illustration](./mel_example.png)
+>![melspectrogram_illustration](./mel_example.png)
 
 ### B. Models
 
