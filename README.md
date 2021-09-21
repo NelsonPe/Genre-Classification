@@ -1,17 +1,39 @@
-# Genre-Classification
+# GenreClassification project
 
-# Signals approaches project
+## Project progress
 
-Project task list
+I want to investigate how combinaison of differents models and audio transformation impact genre classifcation task. For this, I selected various deep learning model and audio transformations type that are used for this type of task. I use ML model for base performance comparaison. 
+
+First part of this project aim to developp a pipe allowing me to try easily all approachs I wanted:
+ 
+- Preprocessing dataset: data augmentation with differents poarameters, differents transformations with differents transformations parameters)
+
+- Handle limited memory capacity: for high resolution transformation and raw signals it's impossible to load all datapoints at once so I had to load batch from hard drive using keras.
+
+- Sanity check: When I work on human skilled task, I like to analyse the model behaviour on data I know well and that are not from the original dataset. So I can have more intuitive feedbacks. 
+
+Second part focused on investigation of other models approachs 
+
+Third part optimization of the most efficient approach
+
+
+## Project task list
+
+Transformed signals
+
 - [X] Machine Learning (SVC, RFC) on transform signals
-- [X] Convolution network 1D on raw and transform signals
+- [X] Convolution network 1D on transform signals
 - [X] Convolution network 2D on transform signals (spectrogram)
+
+Raw signals
+
+- [ ] Convolution network 1D on raw signals
 - [ ] Encoding classifier
 - [ ] LSTM 
 
-Plan
+## Project Plan
 1. Data description
-2. Basic Preprocessing
+2. Preprocessing
     1. Data augmentation
     2. Subsampling
     3. Memory management
@@ -20,6 +42,10 @@ Plan
 4. Results
 5. Discussion: Approachs comparaison
 
+## Learn and reinforced skilled
+- Using keras Sequence for specific batch loading
+- Trained 1D and 2D Convolutional Neural Network
+- 
 ## 1. Data description
 
 GTZAN database <br>
@@ -35,9 +61,10 @@ My personal experience tells me that the variability in one genre needs at far m
 When I see for raw signal 661,500 features for 1000 datapoints, my datascientist experience screems at me OVERFITTING. So my first concern is to augment the number of datapoints and reduce the number of features but keeping as much information as possible, seems I know for sure that the solution can be found from raw signals for human audible frequencies (20 Hz to 20,000Hz).
 
 ### a. Data augmentation
-From one 30 seconds extract I make 28 short extracts (3 seconds) [1+(extract duration - window length) / window step ) = 28]. <br>
-Rolling window of 3 seconds with 1 second step. <br>
-**1,000 audio extracts -> 28,000 small audio extracts**
+I evaluate that the minimal duration to identify an extract genre is between 3 and 5 seconds long. 
+From one 30 seconds songs extracts I make 10 short extracts (3 seconds) [1+(extract duration - window length) / window step )]. <br>
+Rolling window of 3 seconds with 3 second step. <br>
+**1,000 audio extracts -> 10,000 small audio extracts**
 
 ![Data_augmentation_illustration](./DataAugmentation_zoom.png)
 
@@ -47,12 +74,7 @@ The overlapping window introduce a special danger, two differents datapoints hav
 
 ### b. Subsampling
 
-I implemented a subsampling to reduce extract length. This allows to test raw signal approach that will not be possible without. I subsample to 2205 Hz keeping the most sensible frequencies for the human ear (around 2000 Hz), I listen to the song for sanity check and even if the extract quality seems a lot worse the genre are always identifiable.
-
->#### Choice Explaination
->
->My human ability allows me to identify an extract genre if it is between 3 and 5 seconds long. 
-Taking into account this two opposites needs I settle for a 3 seconds extract but I keep in mind that it will be interesting to see the impact of a 5 seconds extract strategy.
+**For now, I don't use subsampling** but I implemented it in the pipe because I want to investigate its impact. 
 
 ### c. Memory management
 
@@ -74,15 +96,18 @@ A song with no resampling, 3 seconds extracts and 1 second rolling window step i
            [-1.4434814e-01, -1.3574219e-01, -1.1437988e-01, ...,
             -1.2930298e-01, -1.2954712e-01, -1.4031982e-01]], dtype=float32)
            
-For each transformation, I make a folder with transformation name containing 1001 files (one per song plus labels: a dict with file name as key and label as target ex: label.get("id-42") return "hiphop"). 
+For each transformation, I make a folder with transformation name containing 1001 files (one per song plus labels: a dict with file name as key and label as target ex: label.get("id-42") return "hiphop", that allow loading only target for splitting). 
 For example, 2dmelspectrogram signals are saved in "Saved_preprocess_datas/2dmelspectrogram/" that contains files (id-0.npy to id-999.npy and labels.npy).
+
+![Storage_illustration](./Illustrations_projet/arbo_storage_mel.png)
 
 ### d. Code structure
 
 All the datascience pipeline, use four main functions:
 - GtzanPreprocessing (create and store on disk preprocessed datas)
+- DataGenerator (create a generator that load datapoints form hard drive)
 - Train_signal_approachs (carry training procedure for preprocess data type and model given)
-- Illustration (show probability prediction for one song, using one approach (same preprocessing and load trained model)
+- Illustration (show probability prediction for one song, using one approach with same preprocessing and loaded trained model)
 
 ##### GtzanPreprocessing
 
@@ -124,25 +149,31 @@ Then I call in training function:
 validation_id_files_names
 OneHotEncoder is fitted with a GTZAN genres list than used at each call of DataGenerator and more generally in all training function
 
+![Preprocess_example](./Illustrations_projet/Preprocess_example.png)
+
 ##### Training function
 
-The training function take at least 4 parameters 
+The training function take at least 4 parameters, DataGenerator is called within it. For now, I use two differents functions to train deeplearning model (keras) and machine learning model (scikit-learn).
 
-    y_v, y_p_v, y_t, y_p_t = train_model_val_test_generated_datas(GenreModel2D, 
-                                                                  "Saved_preprocess_datas/"+data_type+"/", 
-                                                                  params,
-                                                                  epochs=100)
+    y_val, y_pred_val, y_test, y_pred_test = train_model_val_test_generated_datas(
+                                                GenreModel2D, 
+                                                "Saved_preprocess_datas/"+data_type+"/", 
+                                                params,
+                                                epochs=100)
 
 ## 3. Differents signal approachs
 
-Reading about signal approach in machine learning, I identified at least five approachs that seems interesting all of them can be sum up as : <br>
+Reading about signal approach in machine learning, I identified at least four approachs that seems interesting all of them can be sum up as :
 
-Signal transformations:
+### A. Signal transformations
+
+The representation of datapoints given by this transformation depend on parameters take can be tune such as number of window, final resolution or window step.
 
 - Fourier transform
+![fft_illustration](./Illustrations_projet/fft_example_2.png)
 
 - Short time fourier transform (stft) 
-|![stft_illustration](./Saved_results/STFT_example.png)
+![stft_illustration](./Saved_results/STFT_example.png)
 
 
 - Mel-frequency cepstral coefficients (mfcc)
@@ -156,6 +187,33 @@ Details of the four approachs:
 - Raw Signal or Signal transformations -> Convolutional neural network
 - Raw Signal subsampling or Signal transformations -> Autoencoder -> Encoder part (frozen) + final classification layer
 - Raw Signal or Signal transformations -> Long Short Time Memory neural network
+
+### B. Models
+
+**Random Forest Classifier and Support Vector Classifier**
+    
+Using Machine Learning Models as base performance comparaison.
+
+**Convolutional Neural Network (1D and 2D (on spectrogram))**
+
+Mainly used on image and natural language processing, it is also used on time series.
+
+**Long Short Time Memory**
+
+Recurrent Neural Network (RNN) known to perform well in time series, I want to see how it behave with genre classification.
+
+**Encoder-Classifier**
+
+Since signals transformation used in this project can be seen as signal representation well-suited for audio recognition task. I want to see how signal encoding (through autoencoder) can impact genre classification task. 
+
+### C. Approachs
+
+|Transformed signals|Raw signals|Models|
+|:-----------------:|:---------:|:-----|
+|Yes                |No         |Machine Learning model (RandomForest and SVC)|
+|Yes                |Yes        |Convolutional Neural Network|
+|No                 |Yes        |Autoencoder -> Encoder part (frozen) + final classification layer|
+|No                 |Yes        |Long Short Time Memory neural network|
 
 ## 4. Results 
 
@@ -174,4 +232,8 @@ Details of the four approachs:
 ## 5. Discussion: Approachs comparaison
 
 The first result show that the best transformation could be melspectrogram or mfcc. 
-Looking at confusion matrix, for the two best accuracy scores, both model seems to have the same behavior.
+Looking at confusion matrix, for the two best accuracy scores, both model shows 
+
+![Illustration](./Illustrations_projet/illustration_genremodel1d.png)
+
+The behaviour of GenreModel1D trained with melspectrogram 
