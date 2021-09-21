@@ -45,7 +45,7 @@ Raw signals
 ## Learn and reinforced skilled
 - Using keras Sequence for specific batch loading
 - Trained 1D and 2D Convolutional Neural Network
-- 
+
 ## 1. Data description
 
 GTZAN database <br>
@@ -58,7 +58,7 @@ sample rate at 22,050Hz <br>
 
 Audio genre identification is not a trivial task, there is very low chance that 1000 datapoints will be enough (even if it is just link to the proportion of frequencies in the extract). 
 My personal experience tells me that the variability in one genre needs at far more datapoint than a hundred per class.
-When I see for raw signal 661,500 features for 1000 datapoints, my datascientist experience screems at me OVERFITTING. So my first concern is to augment the number of datapoints and reduce the number of features but keeping as much information as possible, seems I know for sure that the solution can be found from raw signals for human audible frequencies (20 Hz to 20,000Hz).
+My first concern is to augment the number of datapoints and reduce the number of features but keeping as much information as possible, seems I know for sure that the solution can be found from raw signals for human audible frequencies (20 Hz to 20,000Hz).
 
 ### a. Data augmentation
 I evaluate that the minimal duration to identify an extract genre is between 3 and 5 seconds long. 
