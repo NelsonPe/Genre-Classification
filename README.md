@@ -145,7 +145,7 @@ Then I call in training function:
 validation_id_files_names
 OneHotEncoder is fitted with a GTZAN genres list than used at each call of DataGenerator and more generally in all training function
 
-![Preprocess_example](./Illustrations_projet/Preprocess_example.png)
+![Preprocess_example](./Preprocess_example.png)
 
 ##### Training function
 
