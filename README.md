@@ -184,19 +184,19 @@ The representation of datapoints given by this transformation depend on paramete
 
 **Random Forest Classifier and Support Vector Classifier**
     
-Using Machine Learning Models as base performance comparaison.
+- Using Machine Learning Models as base performance comparaison.
 
 **Convolutional Neural Network (1D and 2D (on spectrogram))**
 
-Mainly used on image and natural language processing, it is also used on time series.
+- Mainly used on image and natural language processing, it is also used on time series.
 
 **Long Short Time Memory**
 
-Recurrent Neural Network (RNN) known to perform well in time series, I want to see how it behave with genre classification.
+- Recurrent Neural Network (RNN) known to perform well in time series, I want to see how it behave with genre classification.
 
 **Encoder-Classifier**
 
-Since signals transformation used in this project can be seen as signal representation well-suited for audio recognition task. I want to see how signal encoding (through autoencoder) can impact genre classification task. 
+- Since signals transformation used in this project can be seen as signal representation well-suited for audio recognition task. I want to see how signal encoding (through autoencoder) can impact genre classification task. 
 
 ### C. Approachs
 
