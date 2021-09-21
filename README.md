@@ -230,7 +230,7 @@ The representation of datapoints given by this transformation depend on paramete
 ## 5. Discussion: Approachs comparaison
 
 The first result show that the best transformation could be melspectrogram or mfcc. 
-Looking at confusion matrix, for the two best accuracy scores, both model shows 
+Looking at confusion matrix, for the two best accuracy scores, both model shows a similar behaviour. Same performance per class, with best performance for classical and metal classification and worst performance for rock classification.
 
 ![Illustration](./illustration_genremodel1d.png)
 
