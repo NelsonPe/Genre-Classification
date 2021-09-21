@@ -125,7 +125,11 @@ Or even, calling for already resampled dataset save on hard drive to try differe
     preprocessing.fit_transform_memory(save_folder="Saved_preprocess_datas/"+transfo+"/",
                                        path_to_resampled_dataset = "Saved_preprocess_datas/no_resampled/",
                                        transformation = transfo)
-                                                                   
+                                       
+![Preprocess_example](./Preprocess_example.png)
+
+##### DataGenerator
+
 To load data in keras model, I use a class that generate datas on model training, the class is called DataGenerator, it take parameters (datapoints_per_file was added to fit the wrapping extract specific needs): 
 
     # Parameters
@@ -144,8 +148,6 @@ Then I call in training function:
     
 validation_id_files_names
 OneHotEncoder is fitted with a GTZAN genres list than used at each call of DataGenerator and more generally in all training function
-
-![Preprocess_example](./Preprocess_example.png)
 
 ##### Training function
 
