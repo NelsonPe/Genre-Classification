@@ -232,6 +232,6 @@ The representation of datapoints given by this transformation depend on paramete
 The first result show that the best transformation could be melspectrogram or mfcc. 
 Looking at confusion matrix, for the two best accuracy scores, both model shows 
 
-![Illustration](./Illustrations_projet/illustration_genremodel1d.png)
+![Illustration](./illustration_genremodel1d.png)
 
 The behaviour of GenreModel1D trained with melspectrogram 
