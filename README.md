@@ -68,7 +68,7 @@ My first concern is to augment the number of datapoints.
 
 ### a. Data augmentation
 I evaluate that the minimal duration to identify an extract genre is between 3 and 5 seconds long. 
-From one 30 seconds songs extracts, I make 10 short extracts (3 seconds) [1+(extract duration - window length) / window step )]. <br>
+From one 30 seconds songs extracts, I make 10 short extracts (3 seconds) [1+(extract duration - window length) / window step )].
 Rolling window of 3 seconds with 3 second step. <br>
 **1,000 audio extracts -> 10,000 small audio extracts**
 
@@ -76,7 +76,7 @@ Rolling window of 3 seconds with 3 second step. <br>
 
 ### b. Subsampling
 
-**For now, I don't use subsampling** but I implemented it in the pipe because I want to investigate its impact. 
+**For now, I don't use subsampling** but I implemented it in the pipe because I want to investigate its impact later. 
 
 ### c. Memory management
 
