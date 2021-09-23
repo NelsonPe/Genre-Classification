@@ -243,4 +243,4 @@ This first plot shows predictions probabilities for one song (same preprocessing
 
 ![Illustration2](./Pictures/illustration_genremodel1d_mean_max_diff.png)
 
-The second plot shows the L1 distance mean to prediction proba max. Allows me to evaluate the "strengh" of model prediction. For example, in this song, we see three moments (longer than one or two extracts) of at [00:00, 00:15], [01:00, 01:15] and [00:00, 00:15]
+The second plot shows the L1 distance mean to prediction proba max. Allows me to evaluate the "strengh" of model prediction. For example, in this song, we see three moments (longer than one or two extracts) of at [00:00, 00:15], [01:00, 01:15] and [04:03, 04:24] corresponding to instrumental mainly violon without voice.
