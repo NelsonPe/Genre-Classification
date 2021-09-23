@@ -112,19 +112,19 @@ This allows me to simply try different preprocessing choice just by calling:
 
     preprocessing = GtzanPreprocessing("Datasets/GTZAN/genres/")
 
-    preprocessing.fit_transform_memory(save_folder="Saved_preprocess_datas/no_resampled/",
-                                       window_time_width_in_seconds = 3,
-                                       time_step_in_seconds = 3.0,
-                                       new_sampling_rate = 0)
+    preprocessing.fit_transform(save_folder="Saved_preprocess_datas/no_resampled/",
+                                window_time_width_in_seconds = 3,
+                                time_step_in_seconds = 3.0,
+                                new_sampling_rate = 0)
                                                              
 Or even, using already resampled dataset save on hard drive to try different transformations without losing time:
 
     preprocessing = GtzanPreprocessing("Datasets/GTZAN/genres/")
 
     transfo = "2dmelspectrogram_raw"
-    preprocessing.fit_transform_memory(save_folder="Saved_preprocess_datas/"+transfo+"/",
-                                       path_to_resampled_dataset = "Saved_preprocess_datas/no_resampled/",
-                                       transformation = transfo)
+    preprocessing.fit_transform(save_folder="Saved_preprocess_datas/"+transfo+"/",
+                                path_to_resampled_dataset = "Saved_preprocess_datas/no_resampled/",
+                                transformation = transfo)
                                        
 ![Preprocess_example](./Pictures/Preprocess_example.png)
 
