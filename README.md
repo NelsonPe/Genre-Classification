@@ -167,7 +167,7 @@ Reading publications about signal approach in machine learning, I identified at 
 The representation of datapoints given by this transformation depend on parameters take can be tune such as number of window, final resolution or window step. I want to investigate transformation parameters impact (mainly transformation resolution).
 
 - Fourier transform
->![fft_illustration](./Pictures/fft_example_2.png)
+>![fft_illustration](./Pictures/fft_example.png)
 
 - Short time fourier transform (stft) 
 >![stft_illustration](./Pictures/STFT_example.png)
