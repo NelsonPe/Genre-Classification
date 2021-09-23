@@ -232,4 +232,6 @@ The first results show that the best transformation could be melspectrogram or m
 Looking at confusion matrix, for the two best accuracy scores, both model shows a similar behaviour. Same performance per class, with best performance for classical and metal classification and worst performance for rock classification.
 
 ![Illustration](./Pictures/illustration_genremodel1d.png)
+
+![Illustration2](./Pictures/illustration_genremodel1d_mean_max_diff.png)
 This song 
