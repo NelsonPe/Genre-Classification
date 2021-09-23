@@ -66,7 +66,7 @@ From one 30 seconds songs extracts, I make 10 short extracts (3 seconds) [1+(ext
 Rolling window of 3 seconds with 3 second step. <br>
 **1,000 audio extracts -> 10,000 small audio extracts**
 
-![Data_augmentation_illustration](./DataAugmentation_zoom.png)
+![Data_augmentation_illustration](./Pictures/DataAugmentation_zoom.png)
 
 ### b. Subsampling
 
@@ -95,7 +95,7 @@ A song with no resampling, 3 seconds extracts and 3 seconds rolling window step 
 For each transformation, I make a folder containing 1001 files (one per song plus labels: a dict with file name as key and label as target ex: label.get("id-42") return "hiphop", that allow loading only target for splitting). 
 For example, 2dmelspectrogram signals are saved in "Saved_preprocess_datas/2dmelspectrogram/" that contains files (id-0.npy to id-999.npy and labels.npy).
 
-![Storage_illustration](./arbo_storage_mel.png)
+![Storage_illustration](./Pictures/arbo_storage_mel.png)
 
 ### d. Code structure
 
@@ -126,7 +126,7 @@ Or even, using already resampled dataset save on hard drive to try different tra
                                        path_to_resampled_dataset = "Saved_preprocess_datas/no_resampled/",
                                        transformation = transfo)
                                        
-![Preprocess_example](./Preprocess_example.png)
+![Preprocess_example](./Pictures/Preprocess_example.png)
 
 ##### DataGenerator
 
@@ -167,17 +167,17 @@ Reading publications about signal approach in machine learning, I identified at 
 The representation of datapoints given by this transformation depend on parameters take can be tune such as number of window, final resolution or window step. I want to investigate transformation parameters impact (mainly transformation resolution).
 
 - Fourier transform
->![fft_illustration](./fft_example_2.png)
+>![fft_illustration](./Pictures/fft_example_2.png)
 
 - Short time fourier transform (stft) 
->![stft_illustration](./STFT_example.png)
+>![stft_illustration](./Pictures/STFT_example.png)
 
 
 - Mel-frequency cepstral coefficients (mfcc)
->![mfcc_illustration](./MFCC_example.png)
+>![mfcc_illustration](./Pictures/MFCC_example.png)
 
 - Melspectrogram
->![melspectrogram_illustration](./mel_example.png)
+>![melspectrogram_illustration](./Pictures/mel_example.png)
 
 ### B. Models
 
@@ -211,19 +211,19 @@ The representation of datapoints given by this transformation depend on paramete
 #### All already obtain Classifier results on test dataset
 
 
-![All results](./all_results_accuracy.png)
+![All results](./Pictures/all_results_accuracy.png)
 
 
 #### SVC Melspectrogram Confusion Matrix on test dataset
 
 
-![GenreModel1D Mel CM results](./SVC_melspectrogram_matrix.png)
+![GenreModel1D Mel CM results](./Pictures/SVC_melspectrogram_matrix.png)
 
 
 #### GenreModel1D Melspectrogram Confusion Matrix on test dataset
 
 
-![GenreModel1D Mel CM results](./GenreModel1D_melspectrogram_matrix.png)
+![GenreModel1D Mel CM results](./Pictures/GenreModel1D_melspectrogram_matrix.png)
 
 
 ## 5. Discussion: Approachs comparaison
@@ -231,5 +231,5 @@ The representation of datapoints given by this transformation depend on paramete
 The first results show that the best transformation could be melspectrogram or mfcc. 
 Looking at confusion matrix, for the two best accuracy scores, both model shows a similar behaviour. Same performance per class, with best performance for classical and metal classification and worst performance for rock classification.
 
-![Illustration](./illustration_genremodel1d.png)
+![Illustration](./Pictures/illustration_genremodel1d.png)
 This song 
