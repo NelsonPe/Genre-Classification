@@ -1,5 +1,11 @@
 # GenreClassification project
 
+![part1_illustration](./Pictures/teaser_part1.png)
+
+![part2_illustration](./Pictures/teaser_part2.png)
+
+![part3_illustration](./Pictures/teaser_part3.png)
+
 ## Project progress
 
 I want to investigate how combinaison of differents models and audio transformation impact genre classifcation task. For this, I selected various deep learning model and audio transformations type that are used for this type of task. I use ML model for base performance comparaison. 
