@@ -127,7 +127,7 @@ Or even, using already resampled dataset save on hard drive to try different tra
 
     preprocessing = GtzanPreprocessing("Datasets/GTZAN/genres/")
 
-    transfo = "2dmelspectrogram_raw"
+    transfo = "melspectrogram"
     preprocessing.fit_transform(save_folder="Saved_preprocess_datas/"+transfo+"/",
                                 path_to_resampled_dataset = "Saved_preprocess_datas/no_resampled/",
                                 transformation = transfo)
