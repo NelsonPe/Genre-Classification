@@ -12,7 +12,7 @@ I want to investigate how combinaison of differents models and audio transformat
 
 First part of this project aim to developp a pipe allowing me to try easily all approachs I wanted:
  
-- Preprocessing dataset: data augmentation with differents poarameters, differents transformations with differents transformations parameters)
+- Preprocessing dataset: data augmentation with differents parameters, differents transformations with differents transformations parameters)
 
 - Handle limited memory capacity: for high resolution transformation and raw signals it's impossible to load all datapoints at once so I had to load batch from hard drive.
 
