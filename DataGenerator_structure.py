@@ -1,3 +1,10 @@
+from numpy import floor as np_floor 
+from numpy import arange as np_arange                                           
+from numpy.random import shuffle as np_shuffle   
+from numpy import empty as np_empty   
+from keras.utils import Sequence as keras_Sequence 
+from Signals_approaches.Preprocess import load_np_array_with_sampling_rate
+
 class DataGenerator(keras_Sequence):                                            
                                                                                 
     """                                                                         
@@ -55,14 +62,37 @@ class DataGenerator(keras_Sequence):
     
     def __data_generation(list_IDs_batch)
         Call in __get_item__ to load as intended saved datas (unwrapped short extract contains in each files)                                                                                     
-    """    
-    
-    def __init__(self, list_IDs, labels, onehot_encoder, path_to_saved_datapoints, datapoints_per_file, dim, n_classes, batch_size=32, n_channels=1, shuffle=False, to_fit=False, ML=False, only_targets=False):                                                    
-        
-        """
-        self.parameters = parameters
-        """ 
-                                                                                                                                                                       
+    """                                                     
+    def __init__(self,                                                          
+                 list_IDs,                                                      
+                 labels,                                                        
+                 onehot_encoder,                                                
+                 path_to_saved_datapoints,                                      
+                 datapoints_per_file,                                           
+                 batch_size=32,                                                 
+                 dim=(32,32,32),                                                
+                 n_channels=1,                                                  
+                 n_classes=10,                                                  
+                 shuffle=False,                                                 
+                 to_fit=False,                                                  
+                 ML=False,                                                      
+                 only_targets=False):                                                    
+                                                                                                                                       
+        self.dim = dim                                                          
+        self.datapoints_per_file = datapoints_per_file                          
+        self.batch_size = batch_size                                            
+        self.labels = labels                                                    
+        self.onehot_encoder = onehot_encoder                                    
+        self.path_to_saved_datapoints = path_to_saved_datapoints                
+        self.list_IDs = list_IDs                                                
+        self.n_channels = n_channels                                            
+        self.n_classes = n_classes                                              
+        self.shuffle = shuffle                                                  
+        self.to_fit = to_fit                                                    
+        self.ML = ML                                                            
+        self.verbose = verbose                                                  
+        self.only_targets = only_targets                                                                          
+        self.indexes = np_arange(len(self.list_IDs))                                                                                                                        
         self.on_epoch_end()                                                     
                                                                                 
     def __len__(self):                                                                                                                                                
@@ -99,13 +129,59 @@ class DataGenerator(keras_Sequence):
         Returns                                                             
         -------                                                             
            Generator
-        """  
-        
-        """
+           
+        Description
+        -----------
         Declare signals (numpy empty array)
         Declare targets (numpy empty array) (default type for Deep Learning Approach, dtype="<U9" for Machine Learning Approach)
         For element in list_IDs_batch
             Load file -> signal , target
             Save in signals and targets array the loaded signal and target
         Return signals and targets  
-        """
+        """                                                        
+        if self.only_targets and self.to_fit:                                   
+            raise Exception("You cannot make to_fit and only_targets True at the same time (asking outputs x,y and y at the same time)")
+        else:                                                                   
+            pass                                                                
+                                                                                
+        if self.only_targets == False:                                          
+            if type(self.dim) == type(1):                                       
+                X = np_empty((self.batch_size*self.datapoints_per_file, self.dim, self.n_channels))
+            else:                                                               
+                X = np_empty((self.batch_size*self.datapoints_per_file, *self.dim, self.n_channels))
+        else:                                                                   
+            pass                                                                
+                                                                                
+        if self.to_fit or self.only_targets:                                    
+            if self.ML:                                                         
+                y = np_empty((self.batch_size*self.datapoints_per_file, self.n_classes), dtype='<U9')
+            else:                                                               
+                y = np_empty((self.batch_size*self.datapoints_per_file, self.n_classes))
+        else:                                                                   
+            pass                                                                
+        # Generate data                                                         
+        for i, ID in enumerate(list_IDs_temp):                                  
+            # Store sample                                                      
+            inputs_in_file, targets, sr = load_np_array_with_sampling_rate(self.path_to_saved_datapoints + ID)
+            number_of_strings_in_file = 0                                       
+            for j, input_in_file in enumerate(inputs_in_file):                  
+                shape = input_in_file.shape                                     
+                if self.only_targets == False:                                  
+                    X[self.datapoints_per_file*i+j,] = input_in_file.reshape((*shape, self.n_channels))
+                else:                                                           
+                    pass                                                        
+                if self.to_fit or self.only_targets:                            
+                    if self.ML == True:                                         
+                        y[self.datapoints_per_file*i+j,] = targets[j]           
+                    else:                                                       
+                        y[self.datapoints_per_file*i+j,] = self.onehot_encoder.transform([[targets[j]]]).toarray()[0]
+                else:                                                           
+                    pass
+                number_of_strings_in_file +=1                                   
+            assert number_of_strings_in_file == self.datapoints_per_file        
+        if self.to_fit and self.only_targets == False:                          
+            return X, y                                                         
+        elif self.only_targets:                                                 
+            return y                                                            
+        else:                                                                   
+            return X                     
